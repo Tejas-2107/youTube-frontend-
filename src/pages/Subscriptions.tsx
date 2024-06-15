@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Loader from '../components/Loader';
 
 const Subscriptions = () => {
     const [subscriptionData, setSubscriptionData] = useState([]);
@@ -8,12 +9,13 @@ const Subscriptions = () => {
             const subscriptionListResponse = await axios.get("https://www.googleapis.com/youtube/v3/subscriptions", {
                 params: {
                     part: "snippet",
-                    channelId: "UCNmEUFbGvkf4p2GCUDo5t5g",
                     maxResults: 50,
-                    key: process.env.REACT_APP_API_KEY
+                    mine: true
+                },
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("google_access_token")}`
                 }
             });
-            console.log(subscriptionListResponse.data)
             setSubscriptionData(subscriptionListResponse.data.items);
 
         } catch (error) {
@@ -22,16 +24,19 @@ const Subscriptions = () => {
     }
     useEffect(() => {
         fetchSubscriptionData();
-    }, [])
+    }, []);
 
     return (
-        <div className='subscription'>
-            <h1 className='text-gray-700'>your channel subscriptions</h1>
-            {subscriptionData.length > 0 ? subscriptionData.map((channel: any) => {
-                return <>
+        <div className='subscription flex flex-col justify-center items-center min-h-screen gap-y-5'>
+            {subscriptionData.length > 0 ? subscriptionData.map((channel: any) => (
+                <div key={channel.id} className='flex justify-start items-center w-4/5 gap-x-5'>
                     <img src={channel.snippet.thumbnails.medium.url} alt="" className='rounded-full object-cover' />
-                </>
-            }) : "Loading....."}
+                    <ul>
+                        <li><h2 className='text-orange-300'>{channel.snippet.title}</h2>
+                            <h4 className='text-white'>{channel.snippet.description ? channel.snippet.description : "Not Available"}</h4></li>
+                    </ul>
+                </div>
+            )) : <Loader />}
         </div>
     )
 }

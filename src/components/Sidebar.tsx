@@ -6,7 +6,7 @@ import { MdSubscriptions } from "react-icons/md";
 
 const Sidebar = () => {
   return (
-    <div className='sidebar w-1/5 px-14 h-auto'>
+    <div className='w-1/5 px-14 h-screen bg-[#212121] inline-block fixed'>
       <div className='flex flex-col space-y-9 py-5 '>
         <NavLink to='/' className='flex space-x-3'><IoHomeOutline size={25} color='white' />
           <h4 >Home</h4></NavLink>

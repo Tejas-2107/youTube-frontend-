@@ -4,7 +4,9 @@ import GoogleAuth from './pages/GoogleAuth';
 import CallbackGoogle from './pages/CallbackGoogle';
 import Home from './pages/Home';
 import Subscriptions from './pages/Subscriptions';
-function App() {
+import SearchResult from './components/SearchResult';
+import Shorts from './pages/Shorts';
+const App = () => {
   return (
     <>
       <BrowserRouter>
@@ -15,7 +17,9 @@ function App() {
 
       //route with navbar
           <Route index path='/' element={<Home />} />
-          <Route path='/subscriptions' element={<Subscriptions />} />
+          <Route path='/subscriptions' element={<Home><Subscriptions /></Home>} />
+          <Route path='/search' element={<Home ><SearchResult /></Home>} />
+          <Route path='/shorts' element={<Home ><Shorts /></Home>} />
         </Routes>
       </BrowserRouter>
     </>

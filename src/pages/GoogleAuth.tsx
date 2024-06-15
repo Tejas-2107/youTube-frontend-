@@ -1,13 +1,10 @@
-import React from "react";
-import useLogin from "../hooks/useLogin";
 const GoogleAuth = () => {
   const handleGoogleAuth = async () => {
     const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const response = "token";
-    const scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+    const scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/youtube.readonly";
     const redirect_uri="http://localhost:3000/callbackGoogle";
     const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response}&scope=${scope}`;
-    console.log(url)
     window.location.href = url;
   }
   return (
