@@ -25,6 +25,10 @@ const NavBar = () => {
             navigate("/auth/google");
         }
     }
+    const logOut = () =>{
+        sessionStorage.removeItem("google_access_token");
+        navigate("/auth/google");
+    }
     useEffect(() => {
         GetProfile();
     }, [])
@@ -44,6 +48,7 @@ const NavBar = () => {
             <div className='flex justify-between space-x-4 items-center'>
                 <img src={imageUrl} className='w-10' alt="profile-picture" />
                 <h2>{userName}</h2>
+                <button className='text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={logOut}>Log out</button>
             </div>
         </div>
     )
